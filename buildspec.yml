@@ -29,4 +29,6 @@ phases:
     commands:
       - "echo Build completed on `date`"
       - "IMAGE_URI_WITH_TAG=$REPOSITORY_URI:$IMAGE_TAG"
-      - "sed -i -e 's|<IMAGE_URI_PLACEHO
+      - "sed -i -e \"s|<IMAGE_URI_PLACEHOLDER>|${IMAGE_URI_WITH_TAG}|g\" taskdef.json"
+
+
