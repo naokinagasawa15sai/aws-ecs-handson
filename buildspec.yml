@@ -20,7 +20,7 @@ phases:
     commands:
       - echo Build started on `date`
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - "IMAGE_TAG=${COMMIT_HASH:-latest}"
       - echo Building the Docker image with tag $IMAGE_TAG...
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
       - echo Pushing the Docker image...
@@ -41,6 +41,7 @@ phases:
       - echo "Updating ECS service..."
       - aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $ECS_SERVICE_NAME --task-definition "$ECS_TASK_DEFINITION_NAME:$NEW_REVISION" --force-new-deployment
       - echo "ECS service updated successfully."
+
 
 
 
